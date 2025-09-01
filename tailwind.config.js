@@ -10,6 +10,9 @@ export default {
         sans: ['Inter', 'sans-serif'],
       },
       colors: {
+        background: '#ffffff',
+        foreground: '#1f2937',
+        border: '#e5e7eb',
         primary: {
           50: '#fdf7f0',
           100: '#fbeee0',
