@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Star, Heart } from 'lucide-react';
+import { ShoppingBag, Star, Heart, ArrowRight } from 'lucide-react';
 
 const Products = () => {
   const [favorites, setFavorites] = useState<number[]>([]);
