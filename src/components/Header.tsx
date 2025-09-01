@@ -1,83 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { FiChevronDown } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg' 
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="container-max">
-        <div className="flex items-center justify-between py-4">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <Sparkles className={`w-8 h-8 ${isScrolled ? 'text-primary-600' : 'text-white'}`} />
-            <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
-              Luxe
-            </span>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {['Home', 'About', 'Products', 'Media'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className={`font-medium transition-colors duration-300 hover:text-primary-600 ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                }`}
-              >
-                {item}
-              </button>
-            ))}
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden p-2 ${isScrolled ? 'text-gray-900' : 'text-white'}`}
+    <header className="fixed top-0 left-0 right-0 z-50 p-4">
+      <div className="container mx-auto max-w-7xl flex justify-between items-center bg-white/80 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-white/50">
+        <h1 className="text-2xl font-bold text-charcoal">Glowskin</h1>
+        <nav className="hidden md:flex items-center gap-6 text-slate-gray font-medium">
+          <div 
+            className="relative"
+            onMouseEnter={() => setIsMenuOpen(true)}
+            onMouseLeave={() => setIsMenuOpen(false)}
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-md rounded-lg mt-2 p-4 shadow-lg">
-            {['Home', 'About', 'Products', 'Media'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className="block w-full text-left py-3 text-gray-700 hover:text-primary-600 transition-colors duration-300"
-              >
-                {item}
-              </button>
-            ))}
+            <button className="flex items-center gap-1 hover:text-dark-purple transition-colors">
+              All Products <FiChevronDown />
+            </button>
+            <AnimatePresence>
+              {isMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[500px] bg-white p-6 rounded-2xl shadow-lg border border-slate-100"
+                >
+                  <p className="text-charcoal">Mega Menu content from the video would go here.</p>
+                  <p className="text-sm mt-2">Showcasing different product categories.</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-        )}
+          <a href="#" className="hover:text-dark-purple transition-colors">Home</a>
+          <a href="#" className="hover:text-dark-purple transition-colors">About</a>
+          <a href="#" className="hover:text-dark-purple transition-colors">Catalog</a>
+          <a href="#" className="hover:text-dark-purple transition-colors">FAQ</a>
+          <a href="#" className="hover:text-dark-purple transition-colors">Contact Us</a>
+        </nav>
+        <button className="bg-charcoal text-white px-6 py-2 rounded-full font-semibold hover:bg-dark-purple transition-all duration-300 transform hover:scale-105 shadow-md">
+          Sign In
+        </button>
       </div>
     </header>
   );
