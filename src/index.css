@@ -2,10 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .container-max {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center justify-center;
+  }
+  
   .btn-secondary {
+    @apply bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold py-3 px-8 rounded-full border border-white/30 transition-all duration-300;
+  }
+  
+  .gradient-bg {
     background: linear-gradient(135deg, #fdf7f0 0%, #fce7f3 50%, #fdf2f8 100%);
   }
   
   .glass-effect {
     @apply bg-white/80 backdrop-blur-sm border border-white/20;
   }
+}
